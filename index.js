@@ -3,6 +3,8 @@
 
 const fs = require('fs');
 
+const logger = require('./modules/logger.js');
+
 const { Client, Collection, Intents } = require('discord.js');
 const { token } = require('./config.json');
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
@@ -25,12 +27,12 @@ client.on('messageCreate', async message =>
     if (message.content.toLowerCase() === '!takedown' && message.author.id === client.application?.owner.id)
     {
         const command = await client.guilds.cache.get('785880982837526578')?.commands.set([]);
-        console.log(command);
+        logger.log(command);
     }
     else if (message.content.toLowerCase() === '!fulltakedown' && message.author.id === client.application?.owner.id)
     {
         const command = await client.application?.commands.set([]);
-        console.log(command);
+        logger.log(command);
     }
 });
 
@@ -46,7 +48,7 @@ client.on('interactionCreate', async interaction =>
     }
     catch (error)
     {
-        console.error(error);
+        logger.error(error);
         await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
     }
 });
@@ -58,7 +60,7 @@ client.once('ready', () =>
         // Create the interaction command (command[1] is the second part of the pair in map)
         command[1].create(client);
     }
-    console.log('ready');
+    logger.log('ready');
 });
 
 client.login(token);
