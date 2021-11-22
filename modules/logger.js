@@ -1,5 +1,5 @@
 module.exports = {
-    name: 'log',
+    name: 'logger',
     log()
     {
         console.log(arguments?.join(' '));
